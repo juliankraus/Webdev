@@ -6,7 +6,7 @@ router.get("/", function (req, res) {
     var trier = {
         lat: 49.749992,
         long: 6.6371433,
-        zoom: 12
+        zoom: 13
     };
 
     // now we use the templating capabilities of express and call our template to render the view, and pass a few parameters to it

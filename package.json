@@ -9,7 +9,7 @@
 
     "clean": "rm -rf dist && rm -rf node_modules",
 
-    "lint": "eslint -c .eslintrc.json routes/**",
+    "lint": "eslint -c .eslintrc.json routes/** public/javascripts/**",
 
     "ejs": "cp views/index.ejs dist/home.ejs && cp views/error.ejs dist/error.ejs",
 
