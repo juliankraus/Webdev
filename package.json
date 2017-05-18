@@ -11,7 +11,7 @@
 
     "lint": "eslint -c .eslintrc.json routes/** public/javascripts/**",
 
-    "ejs": "cp views/index.ejs dist/home.ejs && cp views/error.ejs dist/error.ejs",
+    "static": "cp views/index.ejs dist/home.ejs && cp views/error.ejs dist/error.ejs",
 
     "css": "lessc public/stylesheets/style.less dist/style.css",
     "css:min": "lessc --clean-css public/stylesheets/style.less dist/style.min.css",
@@ -21,10 +21,10 @@
     "postjs:min": "rm -f dist/main.js",
 
     "predebug": "npm run lint",
-    "debug": "npm run setup && npm run css && run npm js",
+    "debug": "npm run setup && mkdir dist && npm run css && npm run js && npm run static",
 
     "prebuild": "npm run lint",
-    "build": "npm run setup && mkdir dist &&  npm run css:min && npm run js:min && npm run ejs"
+    "build": "npm run setup && mkdir dist &&  npm run css:min && npm run js:min && npm run static"
   },
   "dependencies": {
     "babili": "0.0.12",

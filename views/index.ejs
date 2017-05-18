@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title><%= title %></title>
+  <title>Hausarbeit</title>
   <link rel="stylesheet" href="style.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,8 +10,8 @@
       var initMap = function()
       {
           var myOptions = {
-              center: new google.maps.LatLng(<%=lat%>, <%=lon%>),
-              zoom: <%=zoom%>,
+              center: new google.maps.LatLng(49.749992, 6.6371433),
+              zoom: 13,
               mapTypeId: google.maps.MapTypeId.ROADMAP
           };
           var map = new google.maps.Map(document.getElementById("map"),
@@ -21,6 +21,10 @@
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFDRNsKcoDdX1az69E7DThJYvzsAekkq0&callback=initMap"
           async defer></script>
+</div>
+<div id="table" >
+  <script src="main.min.js" />
+  <script src="main.js" />
 </div>
 </body>
 </html>
