@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="style.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="map" >
+  <script type="text/javascript">
+      var initMap = function()
+      {
+          var myOptions = {
+              center: new google.maps.LatLng(<%=lat%>, <%=lon%>),
+              zoom: <%=zoom%>,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map"),
+              myOptions);
+      };
+
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFDRNsKcoDdX1az69E7DThJYvzsAekkq0&callback=initMap"
+          async defer></script>
+</div>
+</body>
+</html>
+
