@@ -16,7 +16,7 @@
     "css": "lessc public/stylesheets/style.less dist/style.css",
     "css:min": "lessc --clean-css public/stylesheets/style.less dist/style.min.css",
 
-    "js": "browserify public/javascripts/Main.js > dist/main.js",
+    "js": "browserify public/javascripts/** > dist/main.js",
     "js:min": "npm run js && babili dist/main.js > dist/main.min.js",
     "postjs:min": "rm -f dist/main.js",
 
