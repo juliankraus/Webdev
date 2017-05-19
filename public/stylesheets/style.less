@@ -2,11 +2,68 @@
   height: 100%;
   width: 70%;
 }
-
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: lightseagreen;
 }
+button {
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+.paginate {
+  cursor: pointer;
+  position: absolute;
+  top: 2%;
+  width: 20px;
+  height: 20px;
 
+}
+.paginate i {
+  position: absolute;
+  width: 13px;
+  height: 2px;
+  border-radius: 2px;
+  background: black;
+  transition: all 0.15s ease;
+}
+.paginate.left {
+  right: 27%;
+}
+.paginate.left i {
+  transform-origin: 0% 50%;
+}
+.paginate.left i:first-child {
+  transform: translate(0, -1px) rotate(50deg);
+}
+.paginate.left i:last-child {
+  transform: translate(0, 1px) rotate(-50deg);
+}
+
+.paginate.right {
+  right: 25%;
+}
+.paginate.right i {
+  transform-origin: 100% 50%;
+}
+.paginate.right i:first-child {
+  transform: translate(0, 1px) rotate(50deg);
+}
+.paginate.right i:last-child {
+  transform: translate(0, -1px) rotate(-50deg);
+}
+
+
+.counter {
+  text-align: right;
+  position: absolute;
+  width: 10%;
+  top: 1.5%;
+  right: 2%;
+  font-size: 20px;
+  font-family: Helvetica, sans-serif;
+  color: black;
+}

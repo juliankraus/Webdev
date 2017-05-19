@@ -24,7 +24,11 @@
     "debug": "npm run setup && mkdir dist && npm run css && npm run js && npm run static",
 
     "prebuild": "npm run lint",
-    "build": "npm run setup && mkdir dist &&  npm run css:min && npm run js:min && npm run static"
+    "build": "npm run setup && mkdir dist &&  npm run css:min && npm run js:min && npm run static",
+
+    "test": "mkdir dist && npm run css && npm run js && npm run static",
+
+    "remove": "rm -rf dist"
   },
   "dependencies": {
     "babili": "0.0.12",
