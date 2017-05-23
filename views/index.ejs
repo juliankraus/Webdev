@@ -7,19 +7,48 @@
 <body>
 <div id="map" >
   <script type="text/javascript">
-      var initMap = function()
-      {
-          var myOptions = {
+      var map;
+
+      function initMap() {
+          // set up the map
+          map = new google.maps.Map(document.getElementById('map'), {
               center: new google.maps.LatLng(49.749992, 6.6371433),
               zoom: 13,
               mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          var map = new google.maps.Map(document.getElementById("map"),
-              myOptions);
-      };
+          });
+      }
 
+      function loadGeoJsonString(geoString) {
+          var geojson = JSON.parse(geoString);
+          map.data.addGeoJson(geojson);
+          zoom(map);
+      }
+
+      function zoom(map) {
+          var bounds = new google.maps.LatLngBounds();
+          map.data.forEach(function(feature) {
+              processPoints(feature.getGeometry(), bounds.extend, bounds);
+          });
+          map.fitBounds(bounds);
+      }
+
+      function processPoints(geometry, callback, thisArg) {
+          if (geometry instanceof google.maps.LatLng) {
+              callback.call(thisArg, geometry);
+          } else if (geometry instanceof google.maps.Data.Point) {
+              callback.call(thisArg, geometry.get());
+          } else {
+              geometry.getArray().forEach(function(g) {
+                  processPoints(g, callback, thisArg);
+              });
+          }
+      }
+      
+      function initialize() {
+          initMap();
+      };
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFDRNsKcoDdX1az69E7DThJYvzsAekkq0&callback=initMap"
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFDRNsKcoDdX1az69E7DThJYvzsAekkq0&callback=initialize"
           async defer></script>
 </div>
 
@@ -29,6 +58,42 @@
 <button class="paginate right"><i></i><i></i></button>
 
 <ul id="list"></ul>
+<script>
+  var maxListElements = 100 / 4;
+  var json = <%- JSON.stringify(data)%>;
+
+  (function () {
+
+      let list = document.getElementById("list");
+      createListItems(list, maxListElements);
+
+  })();
+
+  function createListItems(list, count) {
+      while (list.hasChildNodes()) {
+          list.removeChild(list.firstChild);
+      }
+
+      for (let itemIndex = 0; itemIndex <= count; itemIndex++) {
+          let listItem = document.createElement("li");
+          listItem.textContent = json[itemIndex].features[0].properties.name;
+
+          if ((itemIndex + 1) % 2 === 0) {
+              listItem.style.background = "white";
+          }
+          else {
+              listItem.style.background = "lightgrey";
+          }
+          listItem.style.cursor = "pointer";
+
+          list.appendChild(listItem);
+      }
+  }
+
+  function onClick() {
+
+  }
+</script>
 
 <script src="main.js" ></script>
 <script src="main.min.js" ></script>
