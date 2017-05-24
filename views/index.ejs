@@ -67,6 +67,14 @@
       let list = document.getElementById("list");
       createListItems(list, maxListElements);
 
+      list.addEventListener("click", function (e) {
+          json.forEach(function (data, index) {
+              if(data.features[0].properties.name === e.target.textContent) {
+                  initialize();
+                  loadGeoJsonString(JSON.stringify(data));
+              };
+          });
+      });
   })();
 
   function createListItems(list, count) {
@@ -88,10 +96,6 @@
 
           list.appendChild(listItem);
       }
-  }
-
-  function onClick() {
-
   }
 </script>
 
