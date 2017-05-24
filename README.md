@@ -2,7 +2,7 @@
 
 Sample webpage to display geojson routes in Google Maps API using npm, express and ejs.
 
-npm run build
-npm run start &optional <port>
+npm run build       // installs project dependencies
+npm run start       // takes port as argument
 
-localhost:8080      //default port
+https://localhost:8080      //default port
