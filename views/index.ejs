@@ -9,8 +9,8 @@
   <script type="text/javascript">
       var map;
 
+      // set up the map
       function initMap() {
-          // set up the map
           map = new google.maps.Map(document.getElementById('map'), {
               center: new google.maps.LatLng(49.749992, 6.6371433),
               zoom: 13,
@@ -18,12 +18,14 @@
           });
       }
 
+      // pass geojson here
       function loadGeoJsonString(geoString) {
           var geojson = JSON.parse(geoString);
           map.data.addGeoJson(geojson);
           zoom(map);
       }
 
+      // zoom
       function zoom(map) {
           var bounds = new google.maps.LatLngBounds();
           map.data.forEach(function(feature) {
@@ -32,6 +34,7 @@
           map.fitBounds(bounds);
       }
 
+      // draw routes
       function processPoints(geometry, callback, thisArg) {
           if (geometry instanceof google.maps.LatLng) {
               callback.call(thisArg, geometry);
@@ -43,7 +46,8 @@
               });
           }
       }
-      
+
+      // GOOOOOOOOO!!1!!11
       function initialize() {
           initMap();
       };
@@ -52,51 +56,80 @@
           async defer></script>
 </div>
 
-<div class="counter"></div>
-
-<button class="paginate left"><i></i><i></i></button>
-<button class="paginate right"><i></i><i></i></button>
+<div id="bar">
+  <div class="paginates">
+    <button class="paginate left"> < </button>
+    <button class="paginate right"> > </button>
+  </div>
+  <div class="counter"></div>
+</div>
 
 <ul id="list"></ul>
 <script>
-  var maxListElements = 100 / 4;
-  var json = <%- JSON.stringify(data)%>;
 
-  (function () {
+    // some fancy variables
+    var maxListElements = 25;
+    var json = <%- JSON.stringify(data)%>;
+    var index = 0;
+    var total = Math.round(json.length / maxListElements);
 
-      let list = document.getElementById("list");
-      createListItems(list, maxListElements);
+    var list = document.getElementById("list");
+    var pl = document.querySelector(".paginate.left");
+    var pr = document.querySelector(".paginate.right");
 
-      list.addEventListener("click", function (e) {
-          json.forEach(function (data, index) {
-              if(data.features[0].properties.name === e.target.textContent) {
-                  initialize();
-                  loadGeoJsonString(JSON.stringify(data));
-              };
-          });
-      });
-  })();
+    // Buttons on click
+    pl.onclick = slide.bind(this, -1);
+    pr.onclick = slide.bind(this, 1);
 
-  function createListItems(list, count) {
-      while (list.hasChildNodes()) {
-          list.removeChild(list.firstChild);
-      }
+    // function to switch between pages
+    function slide(offset) {
+        index = Math.min(Math.max(index + offset, 0), total - 1);
 
-      for (let itemIndex = 0; itemIndex <= count; itemIndex++) {
-          let listItem = document.createElement("li");
-          listItem.textContent = json[itemIndex].features[0].properties.name;
+        document.querySelector(".counter").innerHTML = (index + 1) + "/" + total;
 
-          if ((itemIndex + 1) % 2 === 0) {
-              listItem.style.background = "white";
-          }
-          else {
-              listItem.style.background = "lightgrey";
-          }
-          listItem.style.cursor = "pointer";
+        // ultra nice
+        createListItems(list, (maxListElements * (index + 1)), maxListElements * index);
 
-          list.appendChild(listItem);
-      }
-  }
+        pr.setAttribute("data-state", index === 0 ? "disabled" : "");
+        pl.setAttribute("data-state", index === total - 1 ? "disabled" : "");
+    }
+
+    slide(0);
+
+    (function () {
+
+        createListItems(list, maxListElements, 0);
+
+        list.addEventListener("click", function (e) {
+            json.forEach(function (data) {
+                if(data.features[0].properties.name === e.target.textContent) {
+                    initialize();
+                    loadGeoJsonString(JSON.stringify(data));
+                };
+            });
+        });
+    })();
+
+    function createListItems(list, count, index) {
+        while (list.hasChildNodes()) {
+            list.removeChild(list.firstChild);
+        }
+
+        for (var itemIndex = index; itemIndex < count; itemIndex++) {
+            var listItem = document.createElement("li");
+            listItem.textContent = json[itemIndex].features[0].properties.name;
+
+            if ((itemIndex + 1) % 2 === 0) {
+                listItem.style.background = "white";
+            }
+            else {
+                listItem.style.background = "lightgrey";
+            }
+            listItem.style.cursor = "pointer";
+
+            list.appendChild(listItem);
+        }
+    }
 </script>
 
 <script src="main.js" ></script>

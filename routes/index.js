@@ -1,16 +1,16 @@
 let express = require("express");
 let router = express.Router();
 let fs = require("fs");
-//var obj = JSON.parse(fs.readFileSync("public/json/1.json", "utf8"));
 
 var obj = fs.readdirSync("public/json", "utf8");
 var jsonFiles = [];
 
+// copy json files from dir
 obj.forEach(function (file) {
     jsonFiles.push(JSON.parse(fs.readFileSync("public/json/" + file, "utf8")));
 });
 
-/* GET home page. */
+// GET home page and render json
 router.get("/", function (req, res) {
     res.render("home", { data: jsonFiles });
 });
