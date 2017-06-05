@@ -3,9 +3,6 @@
   <title>Hausarbeit</title>
   <link rel="stylesheet" href="style.min.css" />
   <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-<div id="map" >
   <script type="text/javascript">
       var map;
 
@@ -54,7 +51,36 @@
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFDRNsKcoDdX1az69E7DThJYvzsAekkq0&callback=initialize"
           async defer></script>
-</div>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart(rows) {
+          var data = new google.visualization.DataTable();
+          data.addColumn('number', 'X');
+          data.addColumn('number', 'elevation');
+          data.addRows(rows);
+
+          var options = {
+              legend: "none",
+              backgroundColor: "transparent",
+              chartArea: {width:"100%",height:"100%"},
+              vAxis: {gridlines: {count: 0}, baselineColor: "transparent"},
+              hAxis: {gridlines: {count: 0}, baselineColor: "transparent"},
+              colors: ["black"]
+          }
+
+          var chart = new google.visualization.AreaChart(document.getElementById('elevation'));
+          chart.draw(data, options);
+      }
+  </script>
+  <script src="main.js" ></script>
+  <script src="main.min.js" ></script>
+</head>
+<body>
+<div id="map"></div>
+<div id="elevation"></div>
 
 <div id="bar">
   <div class="paginates">
@@ -72,7 +98,10 @@
     var json = <%- JSON.stringify(data)%>;
     var index = 0;
     var total = Math.round(json.length / maxListElements);
+    var counter = 0;
+    var elevation = [];
 
+    // document elements
     var list = document.getElementById("list");
     var pl = document.querySelector(".paginate.left");
     var pr = document.querySelector(".paginate.right");
@@ -85,6 +114,7 @@
     function slide(offset) {
         index = Math.min(Math.max(index + offset, 0), total - 1);
 
+        // display counter text
         document.querySelector(".counter").innerHTML = (index + 1) + "/" + total;
 
         // ultra nice
@@ -98,13 +128,24 @@
 
     (function () {
 
+        // init first page (counter)
         createListItems(list, maxListElements, 0);
 
+        // listener for click events in list
         list.addEventListener("click", function (e) {
             json.forEach(function (data) {
                 if(data.features[0].properties.name === e.target.textContent) {
                     initialize();
                     loadGeoJsonString(JSON.stringify(data));
+
+                    // get elevation coordinates from clicked object (x and y coordinates)
+                    data.features[0].geometry.coordinates.forEach(function (coordinates) {
+                        elevation[counter] = [counter, coordinates[2]];
+                        counter++;
+                    });
+
+                    // draw chart
+                    drawChart(elevation);
                 };
             });
         });
@@ -131,9 +172,6 @@
         }
     }
 </script>
-
-<script src="main.js" ></script>
-<script src="main.min.js" ></script>
 </body>
 </html>
 
