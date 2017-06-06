@@ -94,7 +94,7 @@
 <script>
 
     // some fancy variables
-    var maxListElements = 25;
+    var maxListElements = Math.floor(((window.screen.availHeight - (window.outerHeight - window.innerHeight)) - 50) / 28);
     var json = <%- JSON.stringify(data)%>;
     var index = 0;
     var total = Math.round(json.length / maxListElements);
@@ -148,6 +148,9 @@
                     drawChart(elevation);
                 };
             });
+
+            counter = 0;
+            elevation = [];
         });
     })();
 
@@ -171,6 +174,19 @@
             list.appendChild(listItem);
         }
     }
+
+    // pagination on resize
+    window.onresize = function () {
+
+        maxListElements = Math.floor((window.innerHeight - 50) / 28);
+
+        total = Math.round(json.length / maxListElements);
+
+        slide(0);
+
+        createListItems(list, (maxListElements * (index + 1)), maxListElements * index);
+
+    };
 </script>
 </body>
 </html>
