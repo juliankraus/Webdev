@@ -8,3 +8,7 @@ Developed on MacOS, build process tested with Terminal.
 2.) npm run start       // takes port as argument
 
 https://localhost:8080      //default port
+
+
+Authors: Julian Kraus (krausj)
+         Tilman Witte (witteti)
