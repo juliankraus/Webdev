@@ -9,6 +9,3 @@ Developed on MacOS, build process tested with Terminal.
 
 https://localhost:8080      //default port
 
-
-Authors: Julian Kraus (krausj)
-         Tilman Witte (witteti)
