@@ -4,42 +4,34 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-
     "setup": "npm install",
-
     "clean": "rm -rf dist && rm -rf node_modules",
-
-    "lint": "eslint -c .eslintrc.json routes/** public/javascripts/**",
-
+    "lint": "eslint -c .eslintrc.json public/javascripts/*",
     "static": "cp views/index.ejs dist/home.ejs && cp views/error.ejs dist/error.ejs",
-
     "css": "lessc public/stylesheets/style.less dist/style.css",
-    "css:min": "lessc --clean-css public/stylesheets/style.less dist/style.min.css",
-
-    "js": "browserify public/javascripts/** > dist/main.js",
-    "js:min": "npm run js && babili dist/main.js > dist/main.min.js",
-    "postjs:min": "rm -f dist/main.js",
-
+    "css:min": "lessc --clean-css public/stylesheets/style.less dist/style.css",
+    "js": "browserify public/javascripts/* > dist/tmp.js",
+    "js:min": "npm run js && babili dist/tmp.js > dist/main.js",
+    "postjs:min": "rm -f dist/tmp.js",
     "predebug": "npm run lint",
     "debug": "npm run setup && mkdir dist && npm run css && npm run js && npm run static",
-
     "prebuild": "npm run lint",
     "build": "npm run setup && mkdir dist &&  npm run css:min && npm run js:min && npm run static",
-
     "test": "mkdir dist && npm run css && npm run js && npm run static",
-
     "remove": "rm -rf dist"
   },
   "dependencies": {
     "babili": "0.0.12",
-    "body-parser": "~1.17.1",
     "browserify": "^14.3.0",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.3",
     "ejs": "~2.5.6",
     "eslint": "^3.19.0",
     "express": "~4.15.2",
-    "geohash": "0.0.1",
+    "google-maps": "^3.2.1"
+  },
+  "devDependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
     "less": "^2.7.2",
     "less-middleware": "~2.2.0",
     "less-plugin-clean-css": "^1.5.1",

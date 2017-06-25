@@ -1,6 +1,11 @@
+@full-height: 100%;
+@font-size: 20px;
+@map-width: 70%;
+@position: absolute;
+
 html,
 body {
-  height: 100%;
+  height: @full-height;
   margin: 0;
   padding: 0;
   background-color: lightseagreen;
@@ -9,32 +14,32 @@ button {
   background: transparent;
   border: 0;
   outline: 0;
-  font-size: 20px;
+  font-size: @font-size;
 }
 #map {
-  height: 100%;
-  width: 70%;
+  height: @full-height;
+  width: @map-width;
   z-index: 0;
 }
 #bar {
-  position: absolute;
+  position: @position;
   top: 0%;
   right: 0%;
-  left: 70%;
+  left: @map-width;
   width: 30%;
   height: 7%;
 }
 .paginates {
   width: 47%;
-  height: 100%;
+  height: @full-height;
   float: left;
   margin: 2% auto;
   padding-left: 2%;
 }
-.counter {
-  font-size: 20px;
+#counter {
+  font-size: @font-size;
   width: 47%;
-  height: 100%;
+  height: @full-height;
   float: right;
   text-align: right;
   margin: 3% auto;
@@ -42,7 +47,7 @@ button {
 }
 #list {
   list-style: none;
-  position: absolute;
+  position: @position;
   top: 50px;
   right: 0;
   margin: 0;
@@ -60,7 +65,7 @@ button {
   padding: 5px 5px 5px;
 }
 #elevation {
-  position: absolute;
+  position: @position;
   z-index: 1;
   bottom: 2%;
   left: 1%;

@@ -1,0 +1,3 @@
+(() => {
+ // bullshit incoming
+})();
