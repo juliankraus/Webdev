@@ -55,26 +55,28 @@
 		}
 
 		for (let itemIndex = index; itemIndex < currentSize; itemIndex++) {
-			let listItem = document.createElement("li");
+			if (itemIndex < tracks.length) {
+				let listItem = document.createElement("li");
 
-			listItem.textContent = tracks[itemIndex];
+				listItem.textContent = tracks[itemIndex];
 
-			listItem.setAttribute("id", itemIndex);
+				listItem.setAttribute("id", itemIndex);
 
-			// click event listener
-			listItem.addEventListener("click", (event) => {
-				xhr.requestJson(event);
-			});
+				// click event listener
+				listItem.addEventListener("click", (event) => {
+					xhr.requestJson(event);
+				});
 
-			if ((itemIndex + 1) % 2 === 0) {
-				listItem.style.background = "white";
+				if ((itemIndex + 1) % 2 === 0) {
+					listItem.style.background = "white";
+				}
+				else {
+					listItem.style.background = "lightgrey";
+				}
+				listItem.style.cursor = "pointer";
+
+				list.appendChild(listItem);
 			}
-			else {
-				listItem.style.background = "lightgrey";
-			}
-			listItem.style.cursor = "pointer";
-
-			list.appendChild(listItem);
 		}
 	}
 })();
