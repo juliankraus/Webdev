@@ -1,4 +1,4 @@
-(() => {
+/*(() => {
 	let FusionCharts = require("fusioncharts");
 	require("fusioncharts/fusioncharts.charts")(FusionCharts);
 
@@ -59,3 +59,4 @@
 		}
 	}).render("elevation");
 })();
+*/
