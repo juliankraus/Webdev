@@ -5,21 +5,21 @@
   "scripts": {
     "start": "node ./bin/www",
     "setup": "npm install",
-    "clean": "n-clean dist && n-clean node_modules",
+    "clean": "shx rm -rf dist node_modules",
     "lint": "./node_modules/.bin/eslint -c .eslintrc.json public/javascripts/**",
     "static": "shx cp ./views/index.ejs ./dist/home.ejs && shx cp ./views/error.ejs ./dist/error.ejs",
     "css": "./node_modules/.bin/lessc public/stylesheets/style.less dist/style.css",
     "css:min": "./node_modules/.bin/lessc --plugin=less-plugin-clean-css public/stylesheets/style.less dist/style.css",
-    "js": "n-run './node_modules/.bin/browserify $g[public/javascripts/**] > dist/main.js'",
-    "prejs:min": "n-run './node_modules/.bin/browserify $g[public/javascripts/**] > dist/tmp.js'",
+    "js": "node ./bin/browserify.js",
+    "prejs:min": "node ./bin/browserify_min.js",
     "js:min": "./node_modules/.bin/babili dist/tmp.js > dist/main.js",
-    "postjs:min": "n-clean dist/tmp.js",
+    "postjs:min": "shx rm -rf dist/tmp.js",
     "predebug": "npm run setup && npm run lint",
     "debug": "shx mkdir dist && npm run css && npm run js && npm run static",
     "prebuild": "npm run setup && npm run lint",
     "build": "shx mkdir dist &&  npm run css:min && npm run js:min && npm run static",
     "test": "shx mkdir dist && npm run css && npm run js && npm run static",
-    "remove": "n-clean dist"
+    "remove": "shx rm -rf dist"
   },
   "dependencies": {
     "express": "latest",

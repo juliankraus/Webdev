@@ -10,16 +10,16 @@ router.get("/", (req, res) => {
 
 // GET json tracks by id
 router.get("/json/tracks/:id", (req, res) => {
-	res.send(JSON.parse(fs.readFileSync(path.join("public", "json", req.params.id + ".json"))).features[0].properties.name);
+	res.send(JSON.parse(fs.readFileSync(path.join("model", "json", req.params.id + ".json"))).features[0].properties.name);
 });
 
 // GET all json tracks
 router.get("/json/tracks", (req, res) => {
-	let tmp = fs.readdirSync(path.join("public", "json"), "utf8");
+	let tmp = fs.readdirSync(path.join("model", "json"), "utf8");
 	let json = [];
 
 	for (let i = 0; i < tmp.length; i++) {
-		json.push(JSON.parse(fs.readFileSync(path.join("public", "json", (i + 1) + ".json"))).features[0].properties.name);
+		json.push(JSON.parse(fs.readFileSync(path.join("model", "json", (i + 1) + ".json"))).features[0].properties.name);
 	}
 
 	res.json(json);
@@ -27,16 +27,16 @@ router.get("/json/tracks", (req, res) => {
 
 // GET json by id
 router.get("/json/:id", (req, res) => {
-	res.sendFile(path.resolve(path.join("public", "json", req.params.id + ".json")));
+	res.sendFile(path.resolve(path.join("model", "json", req.params.id + ".json")));
 });
 
 // GET all json
 router.get("/json", (req, res) => {
-	let tmp = fs.readdirSync(path.join("public", "json"), "utf8");
+	let tmp = fs.readdirSync(path.join("model", "json"), "utf8");
 	let json = [];
 
 	for (let i = 0; i < tmp.length; i++) {
-		json.push(JSON.parse(fs.readFileSync(path.join("public", "json", (i + 1) + ".json"))));
+		json.push(JSON.parse(fs.readFileSync(path.join("model", "json", (i + 1) + ".json"))));
 	}
 
 	res.json(json);
