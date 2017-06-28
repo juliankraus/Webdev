@@ -17,9 +17,7 @@
     "predebug": "npm run setup && npm run lint",
     "debug": "shx mkdir dist && npm run css && npm run js && npm run static",
     "prebuild": "npm run setup && npm run lint",
-    "build": "shx mkdir dist &&  npm run css:min && npm run js:min && npm run static",
-    "test": "shx mkdir dist && npm run css && npm run js && npm run static",
-    "remove": "shx rm -rf dist"
+    "build": "shx mkdir dist &&  npm run css:min && npm run js:min && npm run static"
   },
   "dependencies": {
     "express": "latest",
@@ -38,7 +36,6 @@
     "less-middleware": "latest",
     "less-plugin-clean-css": "latest",
     "morgan": "latest",
-    "npm-build-tools": "^2.2.5",
     "serve-favicon": "latest",
     "shx": "latest"
   }
