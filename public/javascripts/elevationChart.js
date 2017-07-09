@@ -1,62 +1,42 @@
-/*(() => {
-	let FusionCharts = require("fusioncharts");
-	require("fusioncharts/fusioncharts.charts")(FusionCharts);
+import React from "react";
+import { render } from "react-dom";
+import { Chart } from "react-google-charts";
 
-	module.exports.createChart = () => {
-		let chart = new FusionCharts({
-			type: "area2d",
-			width: "500",
-			height: "300",
-			dataFormat: "json",
-			dataSource: {
-				chart: {},
-				data: [{ value: 500 }, { value: 600 }, { value: 700 }]
-			}
-		}).render("elevation");
-	};
+module.exports.init = (json) => {
+	let axis = ["x", "y"];
+	let array = [];
+	let counter = 0;
 
-	let chart = new FusionCharts({
-		type: "area2d",
-		width: "500",
-		height: "300",
-		dataFormat: "json",
-		dataSource: {
-			chart: {
-				numberPrefix: "$",
-				canvasBgAlpha: "0",
-				bgColor: "0"
-			},
-			data: [
-				{
-					label: "Mon",
-					value: "4123"
-				},
-				{
-					label: "Tue",
-					value: "4633"
-				},
-				{
-					label: "Wed",
-					value: "5507"
-				},
-				{
-					label: "Thu",
-					value: "4910"
-				},
-				{
-					label: "Fri",
-					value: "5529"
-				},
-				{
-					label: "Sat",
-					value: "5803"
-				},
-				{
-					label: "Sun",
-					value: "6202"
-				}
-			]
+	array.push(axis);
+
+	// get elevation coordinates from clicked object (x and y coordinates)
+	json.features[0].geometry.coordinates.forEach((coordinates) => {
+		array[counter + 1] = [counter, coordinates[2]];
+		counter++;
+	});
+
+	class App extends React.Component {
+		render() {
+			return (
+				<div className={"my-pretty-chart-container"}>
+					<Chart
+						chartType="AreaChart"
+						data={array}
+						options={{
+							legend: "none",
+							backgroundColor: "transparent",
+							chartArea: { width: "100%", height: "100%" },
+							vAxis: { gridlines: { count: 0 }, baselineColor: "transparent" },
+							hAxis: { gridlines: { count: 0 }, baselineColor: "transparent" },
+							colors: ["black"]
+						}}
+						graph_id="AreaChart"
+						legend_toggle
+					/>
+				</div>
+			);
 		}
-	}).render("elevation");
-})();
-*/
+	}
+
+	render(<App />, document.getElementById("elevation"));
+};

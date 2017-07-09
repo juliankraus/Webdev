@@ -32,7 +32,7 @@
 				map.fitBounds(bounds);
 			}
 
-			// google function
+			// process points
 			function processPoints(geometry, callback, thisArg) {
 				if (geometry instanceof google.maps.LatLng) {
 					callback.call(thisArg, geometry);

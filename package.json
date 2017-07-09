@@ -21,9 +21,15 @@
   },
   "dependencies": {
     "express": "latest",
-    "google-maps": "latest"
+    "google-maps": "latest",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-google-charts": "^1.5.5"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
     "babili": "latest",
     "body-parser": "latest",
     "browserify": "latest",

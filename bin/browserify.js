@@ -13,6 +13,8 @@ for (let i = 0; i < files.length; i++) {
 	b.add(path.join(input, files[i]));
 }
 
+b.transform("babelify", { presets: ["es2015", "react"] });
+
 b.bundle((err, buf) => {
 	if (err) { throw err; }
 	fs.writeFile(output, buf, (err) => {
