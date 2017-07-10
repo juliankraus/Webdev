@@ -1,6 +1,6 @@
 # Webdev
 
-Sample webpage to display geojson routes in Google Maps API using npm, express and ejs.
+Sample webpage to display geojson routes in Google Maps API using npm,react express and ejs.
 
 
 1.) npm run build       // install project dependencies
